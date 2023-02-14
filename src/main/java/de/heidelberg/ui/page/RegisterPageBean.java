@@ -1,12 +1,15 @@
-package de.heidelberg.ui;
+package de.heidelberg.ui.page;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 import java.io.Serializable;
 
+import lombok.EqualsAndHashCode;
+
 @Named("registerPageBean")
 @RequestScoped
-public class RegisterPageBean implements Serializable {
+@EqualsAndHashCode
+public class RegisterPageBean extends AbstractPageBean {
 
 }

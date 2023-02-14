@@ -1,4 +1,4 @@
-package de.heidelberg;
+package de.heidelberg.ui;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;

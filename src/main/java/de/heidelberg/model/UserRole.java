@@ -1,2 +1,5 @@
-package de.heidelberg.model;public enum UserRole {
+package de.heidelberg.model;
+
+public enum UserRole {
+    USER, ADMINISTRATOR;
 }

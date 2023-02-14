@@ -1,13 +1,15 @@
-package de.heidelberg.service;
+package de.heidelberg.service.impl;
 
 import java.security.MessageDigest;
 import java.util.Base64;
+
+import de.heidelberg.exception.UserRegistrationException;
 
 final class AuthenticationHelper {
 
     private AuthenticationHelper()    {}
 
-    static String digestPassword(final String plainTextPassword)
+    static String digestPassword(final String plainTextPassword) throws UserRegistrationException
     {
         try
         {
@@ -16,9 +18,9 @@ final class AuthenticationHelper {
 
             return Base64.getEncoder().encodeToString(md.digest());
         }
-        catch (Exception e)
+        catch (Exception exc)
         {
-            throw new RuntimeException("Exception encoding password", e);
+            throw new UserRegistrationException("Password encoding failed", exc);
         }
     }
 }

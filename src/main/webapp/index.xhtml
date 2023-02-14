@@ -7,12 +7,24 @@
       xmlns:of="http://omnifaces.org/functions">
 
 <h:head>
-  <title>Hello World JSF 2.3</title>
+  <title>User Demo</title>
 </h:head>
 
 <h:body>
   <p:outputPanel style="display:block">
     <h3 style="text-align: center">#{sampleBean.message}</h3>
+
+    <o:highlight styleClass="highlight"/>
+    <h:form>
+      <h:panelGrid id="gridId" columns="1" cellpadding="2">
+        <o:messages for="nameId emailId"
+                    errorClass="ui-message ui-message-error ui-widget ui-corner-all" errorStyle="margin:5px;"/>
+        <p:outputLabel for="username" value="Name:"/> <p:inputText id="nameId" required="true"/>
+        <p:outputLabel for="emailId" value="E-mail:"/> <p:inputText id="emailId" required="true"/>
+        <p:outputLabel for="phoneId" value="Phone:"/> <p:inputText id="phoneId" required="true"/>
+      </h:panelGrid>
+      <p:commandButton id="submitButtonId" value="Register" update="gridId"/>
+    </h:form>
   </p:outputPanel>
 </h:body>
 </html>
