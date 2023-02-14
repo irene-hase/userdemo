@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectResources">
+    <resource url="http://java.sun.com/jsf/facelets" location="" />
+    <resource url="http://omnifaces.org/ui" location="$MAVEN_REPOSITORY$/org/omnifaces/omnifaces/2.6.6/omnifaces-2.6.6.jar!/META-INF/omnifaces-ui.taglib.xml" />
+    <resource url="http://www.icw.de/commons-webui" location="$MAVEN_REPOSITORY$/com/icw/ehf/cui/cui-core-jsf/4.10.0.6_20170323/cui-core-jsf-4.10.0.6_20170323.jar!/META-INF/commons-webui.taglib.xml" />
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="zulu-11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>
