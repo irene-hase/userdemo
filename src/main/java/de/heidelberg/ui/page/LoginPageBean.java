@@ -40,7 +40,7 @@ public class LoginPageBean extends AbstractPageBean {
         credentials = new Credentials(username, password);
         final boolean loginResult = authenticationService.login(credentials);
         if (!loginResult) {
-            addWarnMessage("page.login.warn.login.failed");
+            addErrorMessage("page.login.warn.login.failed");
             return null;
         }
         return "content";
