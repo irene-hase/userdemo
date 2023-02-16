@@ -6,78 +6,152 @@
 <h:head>
     <title>#{msgs['page.login.title']}</title>
     <h:outputStylesheet library="styles" name="login.css"/>
+
+    <style>
+
+        :root {
+            box-sizing: border-box;
+        }
+
+        *,
+        ::before,
+        ::after {
+            box-sizing: inherit;
+        }
+
+        body {
+            background-color: #e5e5e5;
+            font-family: Helvetica, Arial, sans-serif;
+        }
+
+        body * + * {
+            margin-top: 1.5em;
+        }
+
+        .container {
+            max-width: 1080px;
+            margin: 0 auto;
+        }
+
+        .site-nav {
+            display: flex;
+            padding: .5em;
+            background-color: #064d9b;
+            list-style-type: none;
+            border-radius: .2em;
+        }
+
+        .site-nav > li {
+            margin-top: 0;
+        }
+
+        .site-nav > li > a {
+            display: block;
+            padding: .5em 1em;
+            background-color: #9cc9fa;
+            color: white;
+            text-decoration: none;
+        }
+
+        .site-nav > li + li {
+            margin-left: 1.5em;
+        }
+
+        .site-nav > .nav-right {
+            margin-left: auto;
+        }
+
+        .tile {
+            padding: 1.5em;
+            background-color: #fff;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .flex > * + * {
+            margin-top: 0;
+            margin-left: 1.5em;
+        }
+
+        .column-main {
+            flex: 2;
+        }
+
+        .column-sidebar {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .column-sidebar > .tile {
+            flex: 1;
+        }
+        .header {
+            color: #072ca8;
+        }
+    </style>
 </h:head>
 
-<h:body>
+<body>
+<div class="container">
+    <header>
+        <h1 class="header">User Appplication</h1>
+    </header>
+    <nav>
+        <ul class="site-nav">
+            <li><a href="/">Home</a></li>
+            <li class="nav-right">
+                <a href="/about">About</a>
+            </li>
+        </ul>
+    </nav>
+    <main class="flex">
+        <div class="column-main tile">
+            <p:growl id="growl" globalOnly="true" showDetail="true" sticky="true"/>
+            <h1 class="sr-only">#{msgs['page.login.header']}</h1>
+            <h:form id="login">
 
-    <div class="card">
-        <div class="ui-g">
-            <div class="ui-g-12 ui-md-2">
+                <h:panelGrid id="registerGrid" columns="3" cellpadding="5">
+                    <h:outputLabel for="username" value="Username"/>
+                    <h:inputText id="username" value="#{loginPageBean.username}" required="true" tabindex="2"/>
+                    <h:message for="username" style="color: red;"/>
+
+                    <h:outputLabel for="password" value="Password"/>
+                    <h:inputSecret id="password" value="#{loginPageBean.password}" required="true" tabindex="3"/>
+                    <h:message for="password" style="color: red;"/>
+
+                    <p:commandButton value="Cancel" update="login" styleClass="mr-4"
+                                     style="width: auto"
+                                     action="#{loginPageBean.clear}"/>
+                    <p:commandButton value="Login"
+                                     action="#{loginPageBean.login}" update="login growl"
+                                     styleClass="mr-4" style="width: auto"/>
+                   <div/>
+                    <hr/>
+
+                    <h4>
+                        <h:outputLink title="#{msgs['page.login.register.text']}"
+                                      value="register.xhtml" styleClass="displayLink">
+                            <h:outputText value="#{msgs['page.login.register.link']}"/>
+                        </h:outputLink>
+                    </h4>
+                </h:panelGrid>
+
+            </h:form>
+        </div>
+        <div class="column-sidebar">
+            <div class="tile">
                 <h:graphicImage id="app-logo" library="images" name="logo.png" styleClass="logo"/>
             </div>
-            <div class="ui-g-12 ui-md-10 ui-g-nopad">
-                <div class="ui-g-12">
-                    <h1 class="sr-only">#{msgs['page.login.header']}</h1>
-                </div>
-                <div class="ui-g-12 ui-g-nopad">
-                    <div class="ui-g">
-                        <div class="ui-g-12 ui-md-12">
-                            <h:form id="login">
-                                <p:growl id="growl" globalOnly="true" showDetail="true" sticky="true" />
-                                <p:panelGrid columns="2"
-                                             columnClasses="ui-grid-col-4,ui-grid-col-8,"
-                                             layout="grid"
-                                             styleClass="ui-panelgrid-blank ui-fluid"
-                                             style="border:0px none; background-color:transparent;">
-
-                                    <p:row id="my-row-id" styleClass="my-heading-row" style="font-weight: bold">
-                                        <h1 class="sr-only">#{msgs['page.login.header']}</h1>
-                                    </p:row>
-
-                                    <h:outputLabel for="username" value="Username"/>
-                                    <h:inputText id="username" value="#{loginPageBean.username}" required="true" tabindex="2"/>
-                                    <h:message for="username" style="color: red;"/>
-
-                                    <h:outputLabel for="password" value="Password"/>
-                                    <h:inputSecret id="password" value="#{loginPageBean.password}" required="true" tabindex="3" />
-                                    <h:message for="password" style="color: red;"/>
-                                    <hr/>
-
-                                    <p:row>
-                                        <p:column styleClass="ui-grid-col-12">
-                                            <h4>
-                                                <h:outputLink title="#{msgs['page.login.register.text']}"
-                                                              value="registrationUrl'" styleClass="displayLink">
-                                                    <h:outputText value="#{msgs['page.login.register.link']}"/>
-                                                </h:outputLink>
-                                            </h4>
-                                        </p:column>
-                                    </p:row>
-
-                                    <p:row>
-                                        <p:column styleClass="ui-grid-col-12">
-                                            <p:commandButton value="Cancel" update="login" styleClass="mr-4"
-                                                             style="width: auto"
-                                                             action="#{loginPageBean.clear}"/>
-                                            <p:commandButton value="Login"
-                                                             action="#{loginPageBean.login}" update="login growl"
-                                                             styleClass="mr-4" style="width: auto"/>
-
-                                        </p:column>
-                                    </p:row>
-                                </p:panelGrid>
-
-                            </h:form>
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
-            <div class="ui-g-12">
-                Impressum
+            <div class="tile centered">
+                <a class="cta-button" href="/impressum">
+                    Impressum
+                </a>
             </div>
         </div>
-    </div>
-</h:body>
+    </main>
+</div>
+</body>
 </html>

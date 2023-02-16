@@ -25,6 +25,7 @@ public class FormBasedAuthenticationService implements AuthenticationService {
     @SessionScoped
     @Named("authenticatedUser")
     private UserDto authenticatedUser;
+//    private Optional<UserDto> authenticatedUser;
 
     @Override
     public boolean login(final Credentials userCredentials) throws LoginException
@@ -32,16 +33,9 @@ public class FormBasedAuthenticationService implements AuthenticationService {
         if (null == trimToNull(userCredentials.getUsername()) || null == trimToNull(userCredentials.getPassword())) {
             throw new LoginException("Missed credentials");
         }
-        final Optional<UserDto> unauthenticatedUser = findUser(userCredentials);
-        authenticatedUser = unauthenticatedUser.orElse(null);
+        final Optional<UserDto> unauthenticatedUser = userService.findUserByExactMatchOf(userCredentials.getUsername(), userCredentials.getPassword());
+        this.authenticatedUser = unauthenticatedUser.orElse(null);
 
         return unauthenticatedUser.isPresent();
-    }
-
-    private Optional<UserDto> findUser(Credentials userCredentials)
-    {
-        return userService.findUserByUsernameAndPassword(userCredentials.getUsername(), userCredentials.getPassword())
-                .or(() ->
-                        userService.findUserByMailAndPassword(userCredentials.getUsername(), userCredentials.getPassword() ));
     }
 }

@@ -1,13 +1,10 @@
 package de.heidelberg.ui.page;
 
 import javax.annotation.PostConstruct;
-import javax.el.MethodExpression;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.security.auth.login.LoginException;
-
-import java.io.Serializable;
 
 import de.heidelberg.service.AuthenticationService;
 import de.heidelberg.ui.dto.Credentials;
@@ -28,32 +25,14 @@ public class LoginPageBean extends AbstractPageBean {
     @Inject
     private AuthenticationService authenticationService;
 
-
-    @PostConstruct
-    public void init() {
-
-//        authenticationService//
-    }
-
     public String login() throws LoginException
     {
-        credentials = new Credentials(username, password);
-        final boolean loginResult = authenticationService.login(credentials);
+        final boolean loginResult = authenticationService.login(new Credentials(username, password));
         if (!loginResult) {
             addErrorMessage("page.login.warn.login.failed");
             return null;
         }
         return "content";
-    }
-
-    public Credentials getCredentials()
-    {
-        return credentials;
-    }
-
-    public void setCredentials(Credentials credentials)
-    {
-        this.credentials = credentials;
     }
 
     public String getUsername()

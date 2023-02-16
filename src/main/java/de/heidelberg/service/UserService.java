@@ -7,8 +7,8 @@ import de.heidelberg.ui.dto.UserDto;
 
 public interface UserService extends Serializable {
 
-    Optional<UserDto> findUserByUsernameAndPassword(final String username, final String password);
+    Optional<UserDto> findUserByExactMatchOf(final String username, final String password);
 
-    Optional<UserDto> findUserByMailAndPassword(final String mail, final String password);
+
 
 }

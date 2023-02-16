@@ -1,22 +1,23 @@
 package de.heidelberg.ui.validator;
 
-import static javax.faces.application.FacesMessage.SEVERITY_ERROR;
-
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
+import javax.enterprise.context.RequestScoped;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
-import javax.faces.validator.FacesValidator;
-import javax.faces.validator.Validator;
-import javax.faces.validator.ValidatorException;
+import javax.inject.Named;
 
+import java.io.Serializable;
+import java.util.List;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.omnifaces.validator.MultiFieldValidator;
 
-@FacesValidator("passwordValidator")
-public class PasswordValidator implements Validator<String> {
+@Named
+@RequestScoped
+public class PasswordValidator implements MultiFieldValidator, Serializable {
 
     private static final String INVALID_PASSWORD = "Invalid password";
     /**
@@ -43,14 +44,25 @@ public class PasswordValidator implements Validator<String> {
     }
 
     @Override
-    public void validate(final FacesContext context, final UIComponent component, final String value)
-            throws ValidatorException
-    {
-        if (null != value) {
-            Matcher matcher = getCompiledPattern().matcher(value);
-            if (!matcher.matches()) {
-                throw new ValidatorException(new FacesMessage(SEVERITY_ERROR, INVALID_PASSWORD, INVALID_PASSWORD));
+    public boolean validateValues(final FacesContext context, final List<UIInput> components, final List<Object> values) {
+        if (null == values) {
+            return true;
+        }
+        if (values.size() != 2) {
+            return false;
+        }
+        if (values.get(0) instanceof String && values.get(1) instanceof String) {
+
+            String firstPassword = (String) values.get(1);
+            String secondPassword = (String) values.get(0);
+
+            if (Objects.equals(firstPassword, secondPassword)) {
+                Matcher matcher = getCompiledPattern().matcher(firstPassword);
+                if (matcher.matches()) {
+                    return true;
+                }
             }
         }
+        return false;
     }
 }

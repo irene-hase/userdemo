@@ -22,8 +22,8 @@ import java.util.Objects;
                 + ".password = :password")})
 public class User implements Serializable {
 
-    public static final String FIND_BY_LOGIN = "User.findByLogin";
-    public static final String FIND_BY_LOGIN_PASSWORD = "User.findByLoginAndPassword";
+    public static final String FIND_BY_LOGIN = "User.findByUsername";
+    public static final String FIND_BY_LOGIN_PASSWORD = "User.findByUsernameAndPassword";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -40,9 +40,9 @@ public class User implements Serializable {
     @Column
     private String email;
 
-    private UserRole role;
-
     private VerificationStatus verificationStatus;
+
+    private int countOfFailedLogins = 0;
 
     public Long getId() {
         return this.id;
@@ -76,14 +76,6 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public UserRole getRole() {
-        return role;
-    }
-
-    public void setRole(UserRole role) {
-        this.role = role;
-    }
-
     public VerificationStatus getVerificationStatus()
     {
         return verificationStatus;
@@ -93,6 +85,17 @@ public class User implements Serializable {
     {
         this.verificationStatus = verificationStatus;
     }
+
+    public int getCountOfFailedLogins()
+    {
+        return this.countOfFailedLogins;
+    }
+
+    public void setCountOfFailedLogins(final  int countOfFailedLogins)
+    {
+        this.countOfFailedLogins = countOfFailedLogins;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o)

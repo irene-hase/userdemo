@@ -29,6 +29,10 @@ public abstract class AbstractRepository<E> {
     {
         return entityManager.find(entityClass, id);
     }
+    public E findByUsername(String username)
+    {
+        return entityManager.find(entityClass, username);
+    }
 
     public void remove(E entity)
     {
